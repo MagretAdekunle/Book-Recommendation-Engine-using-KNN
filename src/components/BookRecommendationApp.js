@@ -293,6 +293,50 @@ const BookRecommendationApp = () => {
                 content-based filtering, implemented using nearest neighbors
                 algorithm with cosine similarity metrics.
               </Card.Text>
+
+              <Card.Title className="fs-5">Dataset</Card.Title>
+              <Card.Text className="md">
+              The Book-Crossings dataset contains:
+              1.1 million book ratings (scale: 1-10)
+              270,000 unique books
+              90,000 users
+              Format: User-Item-Rating interactions
+              </Card.Text>
+
+              <Card.Title className="fs-5">Technical Specifications</Card.Title>
+              <Card.Text className="md">
+              Handle sparse rating matrices
+              Implement appropriate similarity metrics
+              Balance recommendation accuracy with computational efficiency
+              Provide justification for parameter choices (e.g., value of K, similarity metric)
+              </Card.Text>
+
+              <Card.Title className="fs-5">Technical Implementation</Card.Title>
+              <Card.Text className="md">
+              User-based collaborative filtering
+              Rating normalization and preprocessing
+              Efficient nearest neighbor computation
+              Scalable recommendation generation
+              Performance optimization for large datasets
+              </Card.Text>
+
+              <Card.Title className="fs-5">Core Features</Card.Title>
+              <Card.Text className="md">
+              Implements KNN algorithm for collaborative filtering
+              Processes large-scale reading behavior data
+              Generates personalized book suggestions
+              Handles sparse rating matrices efficiently
+              Includes similarity-based recommendation generation
+              </Card.Text>
+
+              <Card.Title className="fs-5">Applications</Card.Title>
+              <Card.Text className="md">
+              Personal reading suggestions
+              Library recommendation systems
+              Online bookstore platforms
+              Reading group suggestions
+              </Card.Text>
+
             </Card.Body>
           </Card>
 
