@@ -1,70 +1,206 @@
-# Getting Started with Create React App
+# Book Recommendation Engine
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A web application that provides book recommendations based on machine learning. The system analyzes book similarities and suggests titles based on your input book, author, or genre preferences.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- Search by book title, author, or genre
 
-### `npm start`
+- Real-time recommendations with similarity scores
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Clean and responsive user interface
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- RESTful API backend with FastAPI
 
-### `npm test`
+- Machine learning-powered recommendation system
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Tech Stack
 
-### `npm run build`
+### Frontend
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- React.js
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- React Bootstrap for UI components
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- JavaScript ES6+
 
-### `npm run eject`
+- Bootstrap CSS
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Backend
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- Python 3.x
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- FastAPI
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- Pandas
 
-## Learn More
+- scikit-learn
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- NumPy
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Prerequisites
 
-### Code Splitting
+Before running the project, make sure you have the following installed:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- Node.js and npm
 
-### Analyzing the Bundle Size
+- Python 3.x
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- pip (Python package installer)
 
-### Making a Progressive Web App
+## Installation
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+1\. Clone the repository:
 
-### Advanced Configuration
+```bash
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+git clone <your-repository-url>
 
-### Deployment
+cd book-recommendation-engine
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+```
 
-### `npm run build` fails to minify
+2\. Install frontend dependencies:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```bash
+
+npm install
+
+```
+
+3\. Install backend dependencies:
+
+```bash
+
+python3 -m pip install fastapi uvicorn pandas scikit-learn numpy
+
+```
+
+## Project Structure
+
+```
+
+book-recommendations/
+
+├── src/                      # Frontend source files
+
+│   ├── App.js               # Main React component
+
+│   ├── components/          # React components
+
+│   │   └── BookRecommendationApp.js
+
+│   └── index.js            # React entry point
+
+├── backend/                 # Backend source files
+
+│   ├── app.py              # FastAPI application
+
+│   ├── filtered_df.pkl     # Preprocessed dataset
+
+│   └── sm_filtered_df.pkl  # Similarity matrix
+
+└── package.json            # NPM dependencies
+
+```
+
+## Running the Application
+
+1\. Start the backend server:
+
+```bash
+
+cd backend
+
+python3 app.py
+
+```
+
+The backend will start on http://localhost:8000
+
+2\. In a new terminal, start the frontend development server:
+
+```bash
+
+# From the project root
+
+npm start
+
+```
+
+The application will open in your browser at http://localhost:3000
+
+## API Endpoints
+
+### POST /api/recommendations
+
+Gets book recommendations based on input.
+
+Request body:
+
+```json
+
+{
+
+  "query": "Book Title",
+
+  "search_type": "book"
+
+}
+
+```
+
+Response:
+
+```json
+
+{
+
+  "input_book": "Book Title",
+
+  "recommendations": [
+
+    {
+
+      "title": "Recommended Book 1",
+
+      "distance": 0.8205
+
+    },
+
+    ...
+
+  ]
+
+}
+
+```
+
+## Development
+
+### Adding New Features
+
+1\. Create a new branch for your feature
+
+2\. Implement the feature
+
+3\. Submit a pull request
+
+### Code Style
+
+- Follow PEP 8 for Python code
+
+- Use ESLint for JavaScript code
+
+- Maintain consistent component structure in React
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+
+## Acknowledgments
+
+- Dataset source: [Dataset source]( https://cdn.freecodecamp.org/project-data/books/book-crossings.zip)
+
+- Thanks to freeCodeCamp
