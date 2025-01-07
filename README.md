@@ -1,6 +1,6 @@
 # Book Recommendation Engine
 
-A web application that provides book recommendations based on machine learning. The system analyzes book similarities and suggests titles based on your input book, author, or genre preferences.
+A sophisticated  web application recommendation system that suggests books to users based on their reading preferences, powered by the K-Nearest Neighbors (KNN) algorithm. The system analyzes book similarities and suggests titles based on your input book, author, or genre preferences Built using the comprehensive Book-Crossings dataset, this system analyzes reading patterns and ratings to deliver tailored book recommendations.
 
 ## Features
 
