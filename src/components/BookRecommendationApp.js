@@ -1,26 +1,41 @@
-import React, { useState } from 'react';
-import { Container, Card, Form, Button, Alert } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import React, { useState } from "react";
+import {
+  Navbar,
+  Nav,
+  Container,
+  Button,
+  Card,
+  Row,
+  Col,
+  Form,
+  Alert,
+  Spinner,
+} from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const BookRecommendationApp = () => {
-  const [searchType, setSearchType] = useState('book');
-  const [searchQuery, setSearchQuery] = useState('');
+  const [currentPage, setCurrentPage] = useState("home");
+  const [searchType, setSearchType] = useState("book");
+  const [searchQuery, setSearchQuery] = useState("");
   const [recommendations, setRecommendations] = useState(null);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const getRecommendations = async (query, type) => {
     try {
-      const response = await fetch('http://localhost:8000/api/recommendations', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          query: query,
-          search_type: type
-        }),
-      });
+      const response = await fetch(
+        "http://localhost:8000/api/recommendations",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            query: query,
+            search_type: type,
+          }),
+        }
+      );
 
       if (!response.ok) {
         const error = await response.json();
@@ -35,11 +50,11 @@ const BookRecommendationApp = () => {
 
   const handleSearch = async (e) => {
     e.preventDefault();
-    setError('');
+    setError("");
     setRecommendations(null);
-    
+
     if (!searchQuery.trim()) {
-      setError('Please enter a search term');
+      setError("Please enter a search term");
       return;
     }
 
@@ -54,73 +69,263 @@ const BookRecommendationApp = () => {
     }
   };
 
-  return (
-    <Container className="py-5">
+  const Navigation = () => (
+    <Navbar bg="dark" variant="dark" className="py-2">
+      <Container fluid className="px-3">
+        <Navbar.Brand className="fs-5">BookMind AI</Navbar.Brand>
+        <Nav>
+          <Nav.Link
+            active={currentPage === "home"}
+            onClick={() => setCurrentPage("home")}
+          >
+            Home
+          </Nav.Link>
+          <Nav.Link
+            active={currentPage === "recommend"}
+            onClick={() => setCurrentPage("recommend")}
+          >
+            Recommendations
+          </Nav.Link>
+          <Nav.Link
+            active={currentPage === "about"}
+            onClick={() => setCurrentPage("about")}
+          >
+            About
+          </Nav.Link>
+          <Nav.Link
+            active={currentPage === "research"}
+            onClick={() => setCurrentPage("research")}
+          >
+            Research
+          </Nav.Link>
+        </Nav>
+      </Container>
+    </Navbar>
+  );
+
+  const HomePage = () => (
+    <Container className="py-4">
+      <div className="text-center mb-3">
+        <h1 className="fs-2 mb-3">Welcome to BookMind AI</h1>
+        <p className="mb-3">
+          Discover your next favorite book using our advanced AI-powered
+          recommendation system.
+        </p>
+        <Button
+          variant="primary"
+          size="sm"
+          onClick={() => setCurrentPage("recommend")}
+        >
+          Get Started
+        </Button>
+      </div>
+
+      <Row className="g-2">
+        {[
+          "Smart Recommendations",
+          "Multiple Search Options",
+          "Research-Backed",
+        ].map((title, i) => (
+          <Col key={i} md={4}>
+            <Card className="h-100">
+              <Card.Body className="p-2">
+                <Card.Title className="fs-6">{title}</Card.Title>
+                <Card.Text className="small">
+                  {title === "Smart Recommendations" &&
+                    "A sophisticated web application recommendation system that suggests books to users based on their reading preferences, powered by the K-Nearest Neighbors (KNN) algorithm."}
+                  {title === "Multiple Search Options" &&
+                    "Search by book title, author, or genre to discover new books tailored to your interests."}
+                  {title === "Research-Backed" &&
+                    "Built on cutting-edge machine learning algorithms and extensive literary research."}
+                </Card.Text>
+              </Card.Body>
+            </Card>
+          </Col>
+        ))}
+      </Row>
+    </Container>
+  );
+
+  const RecommendationPage = () => (
+    <Container fluid className="p-3">
       <Card>
-        <Card.Header>
-          <h2 className="text-center mb-0">Book Recommendations</h2>
-        </Card.Header>
-        <Card.Body>
+        <Card.Body className="p-2">
+          <Card.Title className="fs-5 mb-2">Get Recommendations</Card.Title>
           <Form onSubmit={handleSearch}>
-            <div className="d-flex gap-2 mb-3">
-              <Form.Select 
-                value={searchType}
-                onChange={(e) => setSearchType(e.target.value)}
-                style={{ width: '200px' }}
-              >
-                <option value="book">Book Title</option>
-                <option value="author">Author</option>
-                <option value="genre">Genre</option>
-              </Form.Select>
-              
-              <div className="d-flex flex-grow-1 gap-2">
+            <Row className="g-2">
+              <Col sm={3}>
+                <Form.Select
+                  size="sm"
+                  value={searchType}
+                  onChange={(e) => setSearchType(e.target.value)}
+                >
+                  <option value="book">Book Title</option>
+                  <option value="author">Author</option>
+                  <option value="genre">Genre</option>
+                </Form.Select>
+              </Col>
+              <Col sm={7}>
                 <Form.Control
+                  size="sm"
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder={`Enter ${searchType}...`}
                 />
-                <Button type="submit" disabled={isLoading}>
-                  Search
+              </Col>
+              <Col sm={2}>
+                <Button
+                  size="sm"
+                  type="submit"
+                  disabled={isLoading}
+                  className="w-100"
+                >
+                  {isLoading ? (
+                    <Spinner animation="border" size="sm" />
+                  ) : (
+                    "Search"
+                  )}
                 </Button>
-              </div>
-            </div>
+              </Col>
+            </Row>
           </Form>
 
           {error && (
-            <Alert variant="danger" className="mt-3">
+            <Alert variant="danger" className="mt-2 p-2 small">
               {error}
             </Alert>
           )}
 
-          {isLoading && (
-            <div className="text-center mt-4">
-              Loading recommendations...
-            </div>
-          )}
-
           {recommendations && (
-            <div className="mt-4">
-              <h4>Recommendations for '{recommendations.input_book}'</h4>
-              <div className="mt-3">
-                {recommendations.recommendations.map((rec, index) => (
-                  <Card key={index} className="mb-2">
-                    <Card.Body className="d-flex justify-content-between align-items-center">
-                      <span>
-                        {index + 1}. {rec.title}
-                      </span>
-                      <span className="text-muted">
-                        Similarity: {rec.distance.toFixed(4)}
-                      </span>
-                    </Card.Body>
-                  </Card>
-                ))}
-              </div>
+            <div className="mt-2">
+              <h6>Results for '{recommendations.input_book}'</h6>
+              {recommendations.recommendations.map((rec, index) => (
+                <Card key={index} className="mt-1">
+                  <Card.Body className="p-2 d-flex justify-content-between align-items-center">
+                    <span className="small">
+                      {index + 1}. {rec.title}
+                    </span>
+                    <small className="text-muted">
+                      {rec.distance.toFixed(4)}
+                    </small>
+                  </Card.Body>
+                </Card>
+              ))}
             </div>
           )}
         </Card.Body>
       </Card>
     </Container>
+  );
+
+  const AboutPage = () => (
+    <Container fluid className="p-4">
+      <Card>
+        <Card.Body className="p-2">
+          <Card.Title className="fs-5 mb-">About BookMind AI</Card.Title>
+          <Card.Text className="small mb-3">
+            BookMind AI is a state-of-the-art book recommendation system that
+            combines machine learning with deep literary understanding to help
+            readers discover their next favorite books.
+          </Card.Text>
+
+        <Row className="g-2">
+        {[
+          "Our Mission",
+          "How It Works"
+        ].map((title, i) => (
+          <Col key={i} md={6}>
+            <Card className="h-100 bg-light" >
+              <Card.Body className="p-3">
+                <Card.Title className="fs-6">{title}</Card.Title>
+                <Card.Text className="small">
+                  {title === "Our Mission" &&
+                   "We believe that every reader deserves to find books that resonate with their interests and preferences. Our mission is to make book discovery more personal, intuitive, and enjoyable through the power of AI."}
+                  {title === "How It Works" &&
+                    "Our system analyzes various aspects of books including writing style, themes, character development, and plot elements to create sophisticated recommendation patterns that go beyond simple genre matching."}
+                </Card.Text>
+              </Card.Body>
+            </Card>
+          </Col>
+        ))}
+      </Row>
+
+        </Card.Body>
+      </Card>
+    </Container>
+  );
+
+  const ResearchPage = () => (
+    <Container className="p-3">
+      <Card>
+        <Card.Body>
+          <Card.Title className="h3 mb-3">Research & Methodology</Card.Title>
+          <Card.Text className="small">
+            Our recommendation system is built on extensive research in machine
+            learning, natural language processing, and literary analysis. 
+          </Card.Text>
+
+          <Card.Text className="small">
+            A sophisticated web-based recommendation system designed to suggest
+            books based on user preferences, utilizing the K-Nearest Neighbors
+            (KNN) algorithm. This system employs advanced similarity analysis to
+            recommend titles aligned with input criteria such as book, author,
+            or genre preferences. Developed using the comprehensive
+            Book-Crossings dataset, it effectively analyzes user reading
+            patterns and ratings to generate highly tailored and personalized
+            recommendations.
+          </Card.Text>
+
+          <Card className="bg-light">
+            <Card.Body className="p-2">
+              <Card.Title>Technical Approach</Card.Title>
+
+              <Card.Title className="fs-6">Data Processing</Card.Title>
+              <Card.Text className="small">
+                We process book data using advanced NLP techniques to extract
+                meaningful features from book descriptions, reviews, and content
+                analysis.
+              </Card.Text>
+
+              <Card.Title className="fs-6">Machine Learning Model</Card.Title>
+              <Card.Text className="small">
+                Our system uses a combination of collaborative filtering and
+                content-based filtering, implemented using nearest neighbors
+                algorithm with cosine similarity metrics.
+              </Card.Text>
+            </Card.Body>
+          </Card>
+
+          
+        </Card.Body>
+      </Card>
+    </Container>
+  );
+
+  const Footer = () => (
+    <footer className="bg-dark text-white p-2 mt-3">
+      <Container className="text-center">
+        <Card.Text className="small">
+          © 2024 BookMind AI. All rights reserved.
+        </Card.Text>
+        {/* <Card.Text className="small">
+          Powered by machine learning and developed with ❤️ for book lovers
+        </Card.Text> */}
+      </Container>
+    </footer>
+  );
+
+  return (
+    <div className="min-vh-100 bg-light d-flex flex-column">
+      <Navigation />
+      <div className="flex-grow-1">
+        {currentPage === "home" && <HomePage />}
+        {currentPage === "recommend" && <RecommendationPage />}
+        {currentPage === "about" && <AboutPage />}
+        {currentPage === "research" && <ResearchPage />}
+      </div>
+      <Footer />
+    </div>
   );
 };
 
