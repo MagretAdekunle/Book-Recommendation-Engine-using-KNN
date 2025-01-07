@@ -72,7 +72,7 @@ const BookRecommendationApp = () => {
   const Navigation = () => (
     <Navbar bg="dark" variant="dark" className="py-2">
       <Container fluid className="px-3">
-        <Navbar.Brand className="fs-4">BookMind AI</Navbar.Brand>
+        <Navbar.Brand className="fs-4">StorySeeker AI</Navbar.Brand>
         <Nav>
           <Nav.Link
             active={currentPage === "home"}
@@ -106,7 +106,7 @@ const BookRecommendationApp = () => {
   const HomePage = () => (
     <Container className="py-5">
       <div className="text-center mb-4">
-        <h1 className="fs-1 mb-3">Welcome to BookMind AI</h1>
+        <h1 className="fs-1 mb-3">Welcome to StorySeeker AI</h1>
         <p className="fs-5 mb-3">
           Discover your next favorite book using our advanced AI-powered
           recommendation system.
@@ -222,7 +222,7 @@ const BookRecommendationApp = () => {
     <Container fluid className="p-4">
       <Card>
         <Card.Body className="p-4">
-          <Card.Title className="fs-2 mb-3">About BookMind AI</Card.Title>
+          <Card.Title className="fs-2 mb-3">About StorySeeker AI</Card.Title>
           <Card.Text className="md mb-3">
             BookMind AI is a state-of-the-art book recommendation system that
             combines machine learning with deep literary understanding to help
@@ -350,7 +350,7 @@ const BookRecommendationApp = () => {
     <footer className="bg-dark text-white p-3 mt-3">
       <Container className="text-center">
         <Card.Text className="small">
-          © 2024 BookMind AI. All rights reserved.
+          © 2024 StorySeeker AI. All rights reserved.
         </Card.Text>
         {/* <Card.Text className="small">
           Powered by machine learning and developed with ❤️ for book lovers
