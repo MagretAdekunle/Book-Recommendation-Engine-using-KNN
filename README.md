@@ -82,7 +82,7 @@ python3 -m pip install fastapi uvicorn pandas scikit-learn numpy
 
 book-recommendations/
 
-├── src/                      # Frontend source files
+├── src/                     # Frontend source files
 
 │   ├── App.js               # Main React component
 
@@ -90,17 +90,17 @@ book-recommendations/
 
 │   │   └── BookRecommendationApp.js
 
-│   └── index.js            # React entry point
+│   └── index.js             # React entry point
 
 ├── backend/                 # Backend source files
 
-│   ├── app.py              # FastAPI application
+│   ├── app.py               # FastAPI application
 
-│   ├── filtered_df.pkl     # Preprocessed dataset
+│   ├── filtered_df.pkl      # Preprocessed dataset
 
-│   └── sm_filtered_df.pkl  # Similarity matrix
+│   └── sm_filtered_df.pkl   # Similarity matrix
 
-└── package.json            # NPM dependencies
+└── package.json             # NPM dependencies
 
 ```
 
